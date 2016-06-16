@@ -62,7 +62,6 @@ namespace QFJH.Algorithm
 
         private readonly double _l0, _h0;
         private double _limits = 0.001;
-
         private readonly List<Dictionary<string, double>> _existMatch = new List<Dictionary<string, double>>();
         private readonly CameraPara _camData;
 
@@ -85,7 +84,7 @@ namespace QFJH.Algorithm
         {
             if (data.Count < 4)
                 throw new FormatException("进行单张像片的空间后方交会，至少应有三个已知三维坐标的地面控制点！");
-
+            
             this._camData = cam;
             // PPT:4-1.P9
             _l0 = (_camData.WidthPix - 1) / 2.0 + _camData.MainPosX / _camData.PixSize;
@@ -193,8 +192,8 @@ namespace QFJH.Algorithm
             {
                 double[,] tmpA = new double[2, 6],
                     tmpL = new double[2, 1];
-                double x = _existMatch[i]["x"],
-                    y = _existMatch[i]["y"];
+                double x = _existMatch[i]["xa"],
+                    y = _existMatch[i]["ya"];
 
                 tmpA[0, 0] = (R[0, 0] * f + R[0, 2] * x) / zGx[i];
                 tmpA[0, 1] = (R[1, 0] * f + R[1, 2] * x) / zGx[i];
@@ -276,7 +275,7 @@ namespace QFJH.Algorithm
         /// </summary>
         private bool HasLimited(double[,] final)
         {
-            if (this.ItCount > 1000000) throw new Exception("迭代超过100W次无结果，该方程很可能不收敛");
+            if (this.ItCount > 500000) throw new Exception("迭代超过50W次无结果，该方程很可能不收敛");
 
             for (int i = 0; i < final.GetLength(0); i++)
             {
@@ -295,7 +294,7 @@ namespace QFJH.Algorithm
         private void InitialOuter()
         {
             // 书.P75
-            this.Zs = this.FlightHeight; //BUG：单位什么鬼？
+            this.Zs = this.FlightHeight;
             this.p = 0;
             this.w = 0;
             this.k = 0;
@@ -337,13 +336,12 @@ namespace QFJH.Algorithm
                     scale.Add(lenReal / lenImg);
                 }
             }
-            this.M = scale.Average();
+            this.M = scale.Average(); //米
             this.FlightHeight = _camData.f * this.M; // PPT:2-1.P17
         }
 
         /// <summary>
         /// 影像上任一像点a(h行,l列)处的像平面坐标(xa, ya)
-        /// 单位为m
         /// </summary>
         private void RowColtoImgPaneCoord(double h, double l, out double xa, out double ya)
         {

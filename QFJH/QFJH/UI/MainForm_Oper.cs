@@ -49,7 +49,6 @@ namespace QFJH.UI
             if (!CheckOpen()) return;
 
             _left = new BackMatch(_existData, _camPara, "LEFT");
-            _left.SetLimit(1);
             _left.Process();
 
         }
@@ -59,6 +58,7 @@ namespace QFJH.UI
             if (!CheckOpen()) return;
 
             _right = new BackMatch(_existData, _camPara, "RIGHT");
+            _right.Process();
         }
 
         private void 前方交汇计算QToolStripMenuItem_Click(object sender, EventArgs e)
@@ -70,8 +70,10 @@ namespace QFJH.UI
                 return;
             }
             
+            _fr = new FrontMatch(_left, _right, _targetData, _camPara);
 
-            _fr = new FrontMatch(_left);
+
+
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
