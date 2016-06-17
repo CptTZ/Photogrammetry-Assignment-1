@@ -41,6 +41,9 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.保存SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.查看外方位元素VToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.左图像LToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.右图像LToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.外方位元素WToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.左影像LToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -157,7 +160,8 @@
             this.toolStripMenuItem3,
             this.toolStripMenuItem2,
             this.toolStripSeparator1,
-            this.保存SToolStripMenuItem});
+            this.保存SToolStripMenuItem,
+            this.查看外方位元素VToolStripMenuItem});
             this.文件FToolStripMenuItem.Name = "文件FToolStripMenuItem";
             this.文件FToolStripMenuItem.Size = new System.Drawing.Size(103, 35);
             this.文件FToolStripMenuItem.Text = "文件(&F)";
@@ -216,6 +220,30 @@
             this.保存SToolStripMenuItem.Name = "保存SToolStripMenuItem";
             this.保存SToolStripMenuItem.Size = new System.Drawing.Size(337, 38);
             this.保存SToolStripMenuItem.Text = "保存匹配结果(&S)";
+            this.保存SToolStripMenuItem.Click += new System.EventHandler(this.保存SToolStripMenuItem_Click);
+            // 
+            // 查看外方位元素VToolStripMenuItem
+            // 
+            this.查看外方位元素VToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.左图像LToolStripMenuItem,
+            this.右图像LToolStripMenuItem});
+            this.查看外方位元素VToolStripMenuItem.Name = "查看外方位元素VToolStripMenuItem";
+            this.查看外方位元素VToolStripMenuItem.Size = new System.Drawing.Size(337, 38);
+            this.查看外方位元素VToolStripMenuItem.Text = "查看外方位元素(&V)";
+            // 
+            // 左图像LToolStripMenuItem
+            // 
+            this.左图像LToolStripMenuItem.Name = "左图像LToolStripMenuItem";
+            this.左图像LToolStripMenuItem.Size = new System.Drawing.Size(217, 38);
+            this.左图像LToolStripMenuItem.Text = "左图像(&L)";
+            this.左图像LToolStripMenuItem.Click += new System.EventHandler(this.左图像LToolStripMenuItem_Click);
+            // 
+            // 右图像LToolStripMenuItem
+            // 
+            this.右图像LToolStripMenuItem.Name = "右图像LToolStripMenuItem";
+            this.右图像LToolStripMenuItem.Size = new System.Drawing.Size(217, 38);
+            this.右图像LToolStripMenuItem.Text = "右图像(&R)";
+            this.右图像LToolStripMenuItem.Click += new System.EventHandler(this.右图像LToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -303,7 +331,7 @@
             this.containerMain.Panel2.Controls.Add(this.ContainerRight);
             this.containerMain.Panel2MinSize = 50;
             this.containerMain.Size = new System.Drawing.Size(1224, 710);
-            this.containerMain.SplitterDistance = 350;
+            this.containerMain.SplitterDistance = 288;
             this.containerMain.TabIndex = 1;
             // 
             // tabControl
@@ -316,7 +344,7 @@
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(346, 706);
+            this.tabControl.Size = new System.Drawing.Size(284, 706);
             this.tabControl.TabIndex = 0;
             // 
             // tabPage1
@@ -325,7 +353,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 37);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(338, 665);
+            this.tabPage1.Size = new System.Drawing.Size(276, 665);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "多视影像";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -347,8 +375,8 @@
             // 
             this.ContainerLP1.Panel2.Controls.Add(this.groupBox1);
             this.ContainerLP1.Panel2MinSize = 100;
-            this.ContainerLP1.Size = new System.Drawing.Size(332, 659);
-            this.ContainerLP1.SplitterDistance = 344;
+            this.ContainerLP1.Size = new System.Drawing.Size(270, 659);
+            this.ContainerLP1.SplitterDistance = 343;
             this.ContainerLP1.TabIndex = 2;
             // 
             // treeViewImg
@@ -363,7 +391,7 @@
             this.treeViewImg.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2});
-            this.treeViewImg.Size = new System.Drawing.Size(328, 340);
+            this.treeViewImg.Size = new System.Drawing.Size(266, 339);
             this.treeViewImg.TabIndex = 0;
             this.treeViewImg.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewImg_NodeMouseClick);
             // 
@@ -374,7 +402,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(328, 307);
+            this.groupBox1.Size = new System.Drawing.Size(266, 308);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "参数设置";
@@ -572,8 +600,8 @@
             // 
             this.ContainerRight.Panel2.Controls.Add(this.containerRL);
             this.ContainerRight.Panel2MinSize = 100;
-            this.ContainerRight.Size = new System.Drawing.Size(870, 710);
-            this.ContainerRight.SplitterDistance = 507;
+            this.ContainerRight.Size = new System.Drawing.Size(932, 710);
+            this.ContainerRight.SplitterDistance = 355;
             this.ContainerRight.TabIndex = 0;
             // 
             // ContainerLeftUpper
@@ -592,8 +620,8 @@
             // 
             this.ContainerLeftUpper.Panel2.Controls.Add(this.panelRU);
             this.ContainerLeftUpper.Panel2MinSize = 100;
-            this.ContainerLeftUpper.Size = new System.Drawing.Size(866, 503);
-            this.ContainerLeftUpper.SplitterDistance = 433;
+            this.ContainerLeftUpper.Size = new System.Drawing.Size(928, 351);
+            this.ContainerLeftUpper.SplitterDistance = 464;
             this.ContainerLeftUpper.TabIndex = 0;
             // 
             // panelLU
@@ -603,7 +631,7 @@
             this.panelLU.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelLU.Location = new System.Drawing.Point(0, 0);
             this.panelLU.Name = "panelLU";
-            this.panelLU.Size = new System.Drawing.Size(431, 501);
+            this.panelLU.Size = new System.Drawing.Size(462, 349);
             this.panelLU.TabIndex = 0;
             // 
             // pictureRef
@@ -622,7 +650,7 @@
             this.panelRU.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelRU.Location = new System.Drawing.Point(0, 0);
             this.panelRU.Name = "panelRU";
-            this.panelRU.Size = new System.Drawing.Size(427, 501);
+            this.panelRU.Size = new System.Drawing.Size(458, 349);
             this.panelRU.TabIndex = 0;
             // 
             // pictureMatch
@@ -650,8 +678,8 @@
             // 
             this.containerRL.Panel2.Controls.Add(this.dataTargetPoint);
             this.containerRL.Panel2MinSize = 100;
-            this.containerRL.Size = new System.Drawing.Size(870, 199);
-            this.containerRL.SplitterDistance = 434;
+            this.containerRL.Size = new System.Drawing.Size(932, 351);
+            this.containerRL.SplitterDistance = 464;
             this.containerRL.TabIndex = 1;
             // 
             // dataExistPoint
@@ -679,7 +707,7 @@
             this.dataExistPoint.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataExistPoint.RowTemplate.Height = 37;
             this.dataExistPoint.ShowEditingIcon = false;
-            this.dataExistPoint.Size = new System.Drawing.Size(430, 195);
+            this.dataExistPoint.Size = new System.Drawing.Size(460, 347);
             this.dataExistPoint.TabIndex = 0;
             this.dataExistPoint.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataExistPoint_CellClick);
             // 
@@ -706,7 +734,7 @@
             this.dataTargetPoint.Name = "dataTargetPoint";
             this.dataTargetPoint.ReadOnly = true;
             this.dataTargetPoint.RowTemplate.Height = 37;
-            this.dataTargetPoint.Size = new System.Drawing.Size(428, 195);
+            this.dataTargetPoint.Size = new System.Drawing.Size(460, 347);
             this.dataTargetPoint.TabIndex = 0;
             this.dataTargetPoint.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTargetPoint_CellClick);
             // 
@@ -974,6 +1002,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn xDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn yDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn zDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.ToolStripMenuItem 查看外方位元素VToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 左图像LToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 右图像LToolStripMenuItem;
     }
 }
 

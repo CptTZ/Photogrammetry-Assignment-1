@@ -169,6 +169,37 @@ namespace QFJH.Algorithm
             }
         }
 
+        public static Matrix operator /(int a, Matrix b)
+        {
+            if (a != 1) throw new ArgumentException("除数必须为1");
+            return new Matrix(new MatrixInverse(b.Data).InversedMatrix, true);
+        }
+
+        public static Matrix operator -(Matrix a, Matrix b)
+        {
+            return MatrixOperation.Sub(a, b);
+        }
+
+        public static Matrix operator *(Matrix b, double a)
+        {
+            return MatrixOperation.SimpleMultiply(a, b);
+        }
+
+        public static Matrix operator *(double a, Matrix b)
+        {
+            return MatrixOperation.SimpleMultiply(a, b);
+        }
+
+        public static Matrix operator *(Matrix a, Matrix b)
+        {
+            return MatrixOperation.Multiply(a, b);
+        }
+
+        public static Matrix operator +(Matrix a, Matrix b)
+        {
+            return MatrixOperation.Add(a, b);
+        }
+
         /// <summary>
         /// 产生对角阵
         /// </summary>

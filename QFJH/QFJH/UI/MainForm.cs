@@ -55,7 +55,7 @@ namespace QFJH.UI
         }
         #endregion
 
-        private bool CheckOpen()
+        private bool CheckOpen(bool a = false)
         {
             bool isOk = true;
 
@@ -63,6 +63,11 @@ namespace QFJH.UI
                 isOk = false;
             else if (_camPara == null)
                 isOk = false;
+            else if (a)
+            {
+                if (_targetData.Count == 0)
+                    isOk = false;
+            }
 
             if (isOk == false)
             {
@@ -158,5 +163,6 @@ namespace QFJH.UI
             }
         }
         #endregion
+
     }
 }

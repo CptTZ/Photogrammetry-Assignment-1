@@ -14,6 +14,11 @@ namespace QFJH.Algorithm
     {
         #region 后方交会公开属性
         /// <summary>
+        /// 是否计算过了
+        /// </summary>
+        public bool HasProcessed { get; private set; }
+
+        /// <summary>
         /// S在地面摄影坐标系中的X坐标
         /// </summary>
         public double Xs { get; private set; }
@@ -82,9 +87,11 @@ namespace QFJH.Algorithm
         /// <param name="dir">左影像或者右影像</param>
         public BackMatch(List<DataList> data, CameraPara cam, string dir)
         {
+            //BUG: 计算结果和老师的不一样
             if (data.Count < 4)
                 throw new FormatException("进行单张像片的空间后方交会，至少应有三个已知三维坐标的地面控制点！");
-            
+
+            this.HasProcessed = false;
             this._camData = cam;
             // PPT:4-1.P9
             _l0 = (_camData.WidthPix - 1) / 2.0 + _camData.MainPosX / _camData.PixSize;
@@ -100,6 +107,12 @@ namespace QFJH.Algorithm
             CalcScale();
             InitialOuter();
             MainLoop();
+            this.HasProcessed = true;
+        }
+
+        public double GetLimit()
+        {
+            return this._limits;
         }
 
         /// <summary>
@@ -145,10 +158,10 @@ namespace QFJH.Algorithm
 
             // 变量名看书上公式就懂
             var AT = MatrixOperation.MatrixTrans(mergeA);
-            var ATA = MatrixOperation.Multiply(AT, mergeA);
-            var ATA1 = MatrixOperation.Inverse(ATA);
-            var ATA1AT = MatrixOperation.Multiply(ATA1, AT);
-            var final = MatrixOperation.Multiply(ATA1AT, mergeL);
+            var ATA = AT * mergeA;
+            var ATA1 = 1 / ATA;
+            var ATA1AT = ATA1 * AT;
+            var final = ATA1AT * mergeL;
 
             // 结果一定是6*1的矩阵
             return final.Data;
@@ -267,7 +280,7 @@ namespace QFJH.Algorithm
             Matrix mp = new Matrix(Rp, true),
                 mw = new Matrix(Rw, true),
                 mk = new Matrix(Rk, true);
-            return MatrixOperation.Multiply(MatrixOperation.Multiply(mp, mw), mk);
+            return mp * mw * mk;
         }
 
         /// <summary>

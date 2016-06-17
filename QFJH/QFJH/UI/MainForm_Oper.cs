@@ -44,36 +44,127 @@ namespace QFJH.UI
 
         private CameraPara _camPara;
 
+        private void 保存SToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_fr == null || _fr?.HasProcessed == false)
+            {
+                MessageBox.Show(Resources.NotProcessed, Resources.Prog_Name, MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                Title = "保存结果",
+                CheckPathExists = true,
+                InitialDirectory = @"E:\大学\大三下\摄影测量学\摄影测量学作业\Data",
+                Filter = "CSV文件(*.csv)|*.csv"
+            };
+            if (sfd.ShowDialog() != DialogResult.OK) return;
+
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(sfd.OpenFile(), Encoding.Default)) 
+                {
+                    sw.WriteLine("点号,左影像行号,左影像列号,右影像行号,右影像列号,X坐标,Y坐标,Z坐标");
+                    foreach (var t in _targetData)
+                    {
+                        sw.WriteLine(t.PointNumber + "," + t.LeftRowNumber + "," + t.LeftColNumber + "," +
+                                     t.RightRowNumber + "," + t.RightColNumber
+                                     + "," + t.X + "," + t.Y + "," + t.Z);
+                    }
+                }
+                MessageBox.Show("成功！", Resources.Prog_Name, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.Prog_Name, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void 左图像LToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_left == null || _left?.HasProcessed == false) 
+            {
+                MessageBox.Show(Resources.NotProcessed, Resources.Prog_Name, MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            new ViewOuter(_left, "左图像").Show();
+        }
+
+        private void 右图像LToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_right == null || _right?.HasProcessed == false)
+            {
+                MessageBox.Show(Resources.NotProcessed, Resources.Prog_Name, MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            new ViewOuter(_right, "右图像").Show();
+        }
+
         private void 左影像LToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!CheckOpen()) return;
 
-            _left = new BackMatch(_existData, _camPara, "LEFT");
-            _left.Process();
+            try
+            {
+                _left = new BackMatch(_existData, _camPara, "LEFT");
+                _left.SetLimit(1E-5);
+                _left.Process();
+                new ViewOuter(_left, "左图像").Show();
 
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.Prog_Name, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void 右影像RToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!CheckOpen()) return;
 
-            _right = new BackMatch(_existData, _camPara, "RIGHT");
-            _right.Process();
+            try
+            {
+
+                _right = new BackMatch(_existData, _camPara, "RIGHT");
+                _right.SetLimit(1E-5);
+                _right.Process();
+                new ViewOuter(_right, "右图像").Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.Prog_Name, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void 前方交汇计算QToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!CheckOpen()) return;
+            if (!CheckOpen(true)) return;
             if (_left == null | _right == null)
             {
                 MessageBox.Show("请先计算后方交会结果！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            
-            _fr = new FrontMatch(_left, _right, _targetData, _camPara);
 
+            try
+            {
+                _fr = new FrontMatch(_left, _right, _targetData, _camPara);
+                _fr.Process();
 
-
+                dataTargetPoint.Update();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.Prog_Name, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)

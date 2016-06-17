@@ -79,6 +79,15 @@ namespace QFJH.Properties {
         }
         
         /// <summary>
+        ///   查找类似 还未计算相关参数，请先进行参数计算 的本地化字符串。
+        /// </summary>
+        internal static string NotProcessed {
+            get {
+                return ResourceManager.GetString("NotProcessed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 JPEG图像|*.jpg;*.jpeg|PNG图像|*.png|TIF图像|*.tif;*.tiff|BMP图像|*.bmp 的本地化字符串。
         /// </summary>
         internal static string OpenFileFilter {
