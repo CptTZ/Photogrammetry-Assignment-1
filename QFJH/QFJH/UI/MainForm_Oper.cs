@@ -73,7 +73,7 @@ namespace QFJH.UI
                                      + "," + t.X + "," + t.Y + "," + t.Z);
                     }
                 }
-                MessageBox.Show("成功！", Resources.Prog_Name, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("保存成功！", Resources.Prog_Name, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -113,10 +113,9 @@ namespace QFJH.UI
             try
             {
                 _left = new BackMatch(_existData, _camPara, "LEFT");
-                _left.SetLimit(1E-5);
+                _left.SetLimit(1E-7);
                 _left.Process();
                 new ViewOuter(_left, "左图像").Show();
-
             }
             catch(Exception ex)
             {
@@ -131,9 +130,8 @@ namespace QFJH.UI
 
             try
             {
-
                 _right = new BackMatch(_existData, _camPara, "RIGHT");
-                _right.SetLimit(1E-5);
+                _right.SetLimit(1E-7);
                 _right.Process();
                 new ViewOuter(_right, "右图像").Show();
             }
@@ -157,8 +155,11 @@ namespace QFJH.UI
             {
                 _fr = new FrontMatch(_left, _right, _targetData, _camPara);
                 _fr.Process();
+                dataTargetPoint.AutoResizeColumns();
+                dataTargetPoint.Invalidate();
 
-                dataTargetPoint.Update();
+                MessageBox.Show("计算成功，请查看右下方表格或保存结果文件！", Resources.Prog_Name, MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

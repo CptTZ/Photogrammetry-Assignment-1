@@ -73,10 +73,14 @@ namespace QFJH.Algorithm
         /// <summary>
         /// 设置限差
         /// </summary>
-        /// <param name="a">m为单位</param>
         public void SetLimit(double a)
         {
             this._limits = a;
+        }
+
+        public double GetLimit()
+        {
+            return this._limits;
         }
 
         /// <summary>
@@ -87,7 +91,6 @@ namespace QFJH.Algorithm
         /// <param name="dir">左影像或者右影像</param>
         public BackMatch(List<DataList> data, CameraPara cam, string dir)
         {
-            //BUG: 计算结果和老师的不一样
             if (data.Count < 4)
                 throw new FormatException("进行单张像片的空间后方交会，至少应有三个已知三维坐标的地面控制点！");
 
@@ -110,9 +113,56 @@ namespace QFJH.Algorithm
             this.HasProcessed = true;
         }
 
-        public double GetLimit()
+        /// <summary>
+        /// 计算全图比例尺
+        /// </summary>
+        private void CalcScale()
         {
-            return this._limits;
+            List<double> scale = new List<double>();
+            for (int i = 0; i < _existMatch.Count; i++)
+            {
+                for (int j = i + 1; j < _existMatch.Count; j++)
+                {
+                    double x1 = _existMatch[i]["x"],
+                        y1 = _existMatch[i]["y"],
+                        x2 = _existMatch[j]["x"],
+                        y2 = _existMatch[j]["y"],
+                        xa1 = _existMatch[i]["xa"],
+                        ya1 = _existMatch[i]["ya"],
+                        xa2 = _existMatch[j]["xa"],
+                        ya2 = _existMatch[j]["ya"];
+                    // 真实单位是m，相片单位是mm
+                    double lenReal = Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)),
+                        lenImg = Sqrt((xa1 - xa2) * (xa1 - xa2) + (ya1 - ya2) * (ya1 - ya2));
+                    scale.Add(lenReal / (lenImg / 1000));
+                }
+            }
+            this.M = scale.Average(); //米
+            this.FlightHeight = _camData.f / 1000 * this.M; // PPT:2-1.P17
+        }
+        
+        /// <summary>
+        /// 初始化外方位元素
+        /// </summary>
+        private void InitialOuter()
+        {
+            // 书.P75
+            this.Zs = this.FlightHeight;
+            this.p = 0;
+            this.w = 0;
+            this.k = 0;
+            int count = _existMatch.Count;
+            double xs = 0, ys = 0;
+
+            //TODO: 何为四个角上的控制点，直接取所有的可不可以
+            for (int i = 0; i < count; i++)
+            {
+                xs += _existMatch[i]["x"];
+                ys += _existMatch[i]["y"];
+            }
+
+            this.Xs = xs / count;
+            this.Ys = ys / count;
         }
 
         /// <summary>
@@ -300,67 +350,14 @@ namespace QFJH.Algorithm
 
             return true;
         }
-
-        /// <summary>
-        /// 初始化外方位元素
-        /// </summary>
-        private void InitialOuter()
-        {
-            // 书.P75
-            this.Zs = this.FlightHeight;
-            this.p = 0;
-            this.w = 0;
-            this.k = 0;
-            int count = _existMatch.Count;
-            double xs = 0, ys = 0;
-
-            //TODO: 何为四个角上的控制点，直接取所有的可不可以
-            for (int i = 0; i < count; i++)
-            {
-                xs += _existMatch[i]["x"];
-                ys += _existMatch[i]["y"];
-            }
-
-            this.Xs = xs / count;
-            this.Ys = ys / count;
-        }
-
-        /// <summary>
-        /// 计算全图比例尺
-        /// </summary>
-        private void CalcScale()
-        {
-            List<double> scale = new List<double>();
-            for (int i = 0; i < _existMatch.Count; i++)
-            {
-                for (int j = i + 1; j < _existMatch.Count; j++)
-                {
-                    double x1 = _existMatch[i]["x"],
-                        y1 = _existMatch[i]["y"],
-                        x2 = _existMatch[j]["x"],
-                        y2 = _existMatch[j]["y"],
-                        xa1 = _existMatch[i]["xa"],
-                        ya1 = _existMatch[i]["ya"],
-                        xa2 = _existMatch[j]["xa"],
-                        ya2 = _existMatch[j]["ya"];
-                    // 真实单位是米，相片单位也是米
-                    double lenReal = Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)),
-                        lenImg = Sqrt((xa1 - xa2) * (xa1 - xa2) + (ya1 - ya2) * (ya1 - ya2));
-                    scale.Add(lenReal / lenImg);
-                }
-            }
-            this.M = scale.Average(); //米
-            this.FlightHeight = _camData.f * this.M; // PPT:2-1.P17
-        }
-
         /// <summary>
         /// 影像上任一像点a(h行,l列)处的像平面坐标(xa, ya)
         /// </summary>
         private void RowColtoImgPaneCoord(double h, double l, out double xa, out double ya)
         {
             // PPT:4-1.P9 
-            xa = (l - _l0) * _camData.PixSize / 1000;
-            ya = (_h0 - h) * _camData.PixSize / 1000;
+            xa = (l - _l0) * _camData.PixSize;
+            ya = (_h0 - h) * _camData.PixSize;
         }
 
         private void MakeMatchList(List<DataList> data, string dir)

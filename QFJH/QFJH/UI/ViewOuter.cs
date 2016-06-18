@@ -15,8 +15,8 @@ namespace QFJH.UI
     public partial class ViewOuter : Form
     {
         private readonly BackMatch _bm;
-        
-        public ViewOuter(BackMatch b,string p)
+
+        public ViewOuter(BackMatch b, string p)
         {
             this._bm = b;
             InitializeComponent();

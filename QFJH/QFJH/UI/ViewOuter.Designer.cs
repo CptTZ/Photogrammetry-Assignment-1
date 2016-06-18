@@ -286,6 +286,7 @@
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(865, 450);
             this.Name = "ViewOuter";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ViewOuter";

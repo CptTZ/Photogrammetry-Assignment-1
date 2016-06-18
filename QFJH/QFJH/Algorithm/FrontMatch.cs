@@ -213,8 +213,8 @@ namespace QFJH.Algorithm
         private void RowColtoImgPaneCoord(double h, double l, out double xa, out double ya)
         {
             // PPT:4-1.P9 
-            xa = (l - _l0) * _cam.PixSize / 1000;
-            ya = (_h0 - h) * _cam.PixSize / 1000;
+            xa = (l - _l0) * _cam.PixSize;
+            ya = (_h0 - h) * _cam.PixSize;
         }
 
         private void MakeTargetList(List<DataList> data)
