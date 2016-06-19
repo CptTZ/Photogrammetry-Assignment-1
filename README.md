@@ -2,7 +2,7 @@
 
 南师大 GIS 摄影测量学 作业1 单像空间后方交会
 
-```注意：如果提示“未找到类型，DataStruct.DataList”，请先生成一次解决方案（Ctrl+Shift+B）即可。```
+***注意：如果提示“未找到类型，DataStruct.DataList”，请先生成一次解决方案（Ctrl+Shift+B）即可。***
 
 Visual Studio 2015, .Net Framework 4.5
 
