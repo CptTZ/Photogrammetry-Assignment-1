@@ -50,6 +50,7 @@ namespace QFJH.UI
             {
                 MessageBox.Show(Resources.NotProcessed, Resources.Prog_Name, MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
+                return;
             }
 
             SaveFileDialog sfd = new SaveFileDialog
@@ -72,6 +73,7 @@ namespace QFJH.UI
                                      t.RightRowNumber + "," + t.RightColNumber
                                      + "," + t.X + "," + t.Y + "," + t.Z);
                     }
+                    sw.Close();
                 }
                 MessageBox.Show("保存成功！", Resources.Prog_Name, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -224,16 +226,13 @@ namespace QFJH.UI
                         _existData.Add(aData);
                     }
                     DrawPicMarkBase();
+                    dataExistPoint.DataSource = _existData;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Resources.Prog_Name, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            }
-            finally
-            {
-                dataExistPoint.DataSource = _existData;
             }
         }
 
@@ -265,16 +264,13 @@ namespace QFJH.UI
                         _targetData.Add(aData);
                     }
                     DrawPicMarkSearch();
+                    dataTargetPoint.DataSource = _targetData;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Resources.Prog_Name, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            }
-            finally
-            {
-                dataTargetPoint.DataSource = _targetData;
             }
         }
 

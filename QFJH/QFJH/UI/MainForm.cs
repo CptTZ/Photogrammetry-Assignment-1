@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -164,5 +165,62 @@ namespace QFJH.UI
         }
         #endregion
 
+        /// <summary>
+        /// 保存所有点的数据（临时添加）
+        /// </summary>
+        private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_fr == null | _left == null | _right == null | _fr?.HasProcessed == false |
+                _left?.HasProcessed == false | _right?.HasProcessed == false)
+            {
+                MessageBox.Show(Resources.NotProcessed, Resources.Prog_Name, MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                Title = "保存结果",
+                CheckPathExists = true,
+                InitialDirectory = @"E:\大学\大三下\摄影测量学\摄影测量学作业\Data",
+                Filter = "CSV文件(*.csv)|*.csv"
+            };
+            if (sfd.ShowDialog() != DialogResult.OK) return;
+
+            var c = _fr.GetDictForSave();
+            var a = _left.GetDictForSave();
+            var b = _right.GetDictForSave();
+
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(sfd.OpenFile(), Encoding.Default))
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine("点ID,左影像行号,左影像列号,右影像行号,右影像列号,左像平面X,左像平面Y,右像平面X,右像平面Y");
+
+                    for (int i = 0; i < a.Count; i++)
+                    {
+                        sb.AppendLine(a[i]["ID"].ToString("####") + "," + a[i]["row"] + "," + a[i]["col"] + "," +
+                                      b[i]["row"] + "," + b[i]["col"] + "," +
+                                      a[i]["xa"] + "," + a[i]["ya"] + "," + b[i]["xa"] + "," + b[i]["ya"]);
+                    }
+
+                    foreach (var t in c)
+                    {
+                        sb.AppendLine(t["ID"].ToString("####") + "," + t["lRow"] + "," + t["lCol"] + "," +
+                                      t["rRow"] + "," + t["rCol"] + "," +
+                                      t["lXa"] + "," + t["lYa"] + "," + t["rXa"] + "," + t["rYa"]);
+                    }
+
+                    sw.WriteLine(sb.ToString());
+                    sw.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.Prog_Name, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
     }
 }

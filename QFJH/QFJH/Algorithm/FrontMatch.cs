@@ -32,6 +32,14 @@ namespace QFJH.Algorithm
         #endregion
 
         /// <summary>
+        /// 返回计算用的字典，用于数据保存（临时添加）
+        /// </summary>
+        public List<Dictionary<string, double>> GetDictForSave()
+        {
+            return this._targetMatch;
+        }
+
+        /// <summary>
         /// 前方交会
         /// </summary>
         /// <param name="left">左影像的后方交会结果</param>
@@ -224,6 +232,7 @@ namespace QFJH.Algorithm
                 double xa, ya;
                 var tmp = new Dictionary<string, double>
                 {
+                    {"ID", t.PointNumber},
                     {"lCol", t.LeftColNumber},
                     {"lRow", t.LeftRowNumber},
                     {"rCol", t.RightColNumber},

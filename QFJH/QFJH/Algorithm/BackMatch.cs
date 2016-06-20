@@ -84,6 +84,14 @@ namespace QFJH.Algorithm
         }
 
         /// <summary>
+        /// 返回计算用的字典，用于数据保存（临时添加）
+        /// </summary>
+        public List<Dictionary<string, double>> GetDictForSave()
+        {
+            return this._existMatch;
+        }
+
+        /// <summary>
         /// 后方交会处理
         /// </summary>
         /// <param name="data">匹配线数据</param>
@@ -208,10 +216,7 @@ namespace QFJH.Algorithm
 
             // 变量名看书上公式就懂
             var AT = MatrixOperation.MatrixTrans(mergeA);
-            var ATA = AT * mergeA;
-            var ATA1 = 1 / ATA;
-            var ATA1AT = ATA1 * AT;
-            var final = ATA1AT * mergeL;
+            var final = (1 / (AT * mergeA)) * AT * mergeL;
 
             // 结果一定是6*1的矩阵
             return final.Data;
@@ -367,6 +372,7 @@ namespace QFJH.Algorithm
             {
                 var tmp = new Dictionary<string, double>
                 {
+                    {"ID", t.PointNumber},
                     {"x", t.X},
                     {"y", t.Y},
                     {"z", t.Z}

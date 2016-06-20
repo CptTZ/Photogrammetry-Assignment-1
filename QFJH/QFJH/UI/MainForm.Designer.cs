@@ -44,13 +44,13 @@
             this.查看外方位元素VToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.左图像LToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.右图像LToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.外方位元素WToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.左影像LToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.右影像RToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.前方交汇计算QToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助HToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.文档DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.containerMain = new System.Windows.Forms.SplitContainer();
@@ -84,7 +84,6 @@
             this.pictureMatch = new System.Windows.Forms.PictureBox();
             this.containerRL = new System.Windows.Forms.SplitContainer();
             this.dataExistPoint = new System.Windows.Forms.DataGridView();
-            this.dataTargetPoint = new System.Windows.Forms.DataGridView();
             this.pointNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.leftColNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rightColNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -94,6 +93,7 @@
             this.zDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.xDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataTargetPoint = new System.Windows.Forms.DataGridView();
             this.pointNumberDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rightRowNumberDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rightColNumberDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -133,8 +133,8 @@
             this.containerRL.Panel2.SuspendLayout();
             this.containerRL.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataExistPoint)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTargetPoint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataListBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataTargetPoint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cameraParaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -161,7 +161,8 @@
             this.toolStripMenuItem2,
             this.toolStripSeparator1,
             this.保存SToolStripMenuItem,
-            this.查看外方位元素VToolStripMenuItem});
+            this.查看外方位元素VToolStripMenuItem,
+            this.保存ToolStripMenuItem});
             this.文件FToolStripMenuItem.Name = "文件FToolStripMenuItem";
             this.文件FToolStripMenuItem.Size = new System.Drawing.Size(103, 35);
             this.文件FToolStripMenuItem.Text = "文件(&F)";
@@ -245,6 +246,13 @@
             this.右图像LToolStripMenuItem.Text = "右图像(&R)";
             this.右图像LToolStripMenuItem.Click += new System.EventHandler(this.右图像LToolStripMenuItem_Click);
             // 
+            // 保存ToolStripMenuItem
+            // 
+            this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
+            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(337, 38);
+            this.保存ToolStripMenuItem.Text = "保存像平面坐标(&Z)";
+            this.保存ToolStripMenuItem.Click += new System.EventHandler(this.保存ToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -287,22 +295,15 @@
             // 帮助HToolStripMenuItem
             // 
             this.帮助HToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.文档DToolStripMenuItem,
             this.关于AToolStripMenuItem});
             this.帮助HToolStripMenuItem.Name = "帮助HToolStripMenuItem";
             this.帮助HToolStripMenuItem.Size = new System.Drawing.Size(109, 35);
             this.帮助HToolStripMenuItem.Text = "帮助(&H)";
             // 
-            // 文档DToolStripMenuItem
-            // 
-            this.文档DToolStripMenuItem.Name = "文档DToolStripMenuItem";
-            this.文档DToolStripMenuItem.Size = new System.Drawing.Size(195, 38);
-            this.文档DToolStripMenuItem.Text = "文档(&D)";
-            // 
             // 关于AToolStripMenuItem
             // 
             this.关于AToolStripMenuItem.Name = "关于AToolStripMenuItem";
-            this.关于AToolStripMenuItem.Size = new System.Drawing.Size(195, 38);
+            this.关于AToolStripMenuItem.Size = new System.Drawing.Size(194, 38);
             this.关于AToolStripMenuItem.Text = "关于(&A)";
             this.关于AToolStripMenuItem.Click += new System.EventHandler(this.关于AToolStripMenuItem_Click);
             // 
@@ -376,7 +377,7 @@
             this.ContainerLP1.Panel2.Controls.Add(this.groupBox1);
             this.ContainerLP1.Panel2MinSize = 100;
             this.ContainerLP1.Size = new System.Drawing.Size(270, 659);
-            this.ContainerLP1.SplitterDistance = 343;
+            this.ContainerLP1.SplitterDistance = 342;
             this.ContainerLP1.TabIndex = 2;
             // 
             // treeViewImg
@@ -391,7 +392,7 @@
             this.treeViewImg.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2});
-            this.treeViewImg.Size = new System.Drawing.Size(266, 339);
+            this.treeViewImg.Size = new System.Drawing.Size(266, 338);
             this.treeViewImg.TabIndex = 0;
             this.treeViewImg.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewImg_NodeMouseClick);
             // 
@@ -402,7 +403,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(266, 308);
+            this.groupBox1.Size = new System.Drawing.Size(266, 309);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "参数设置";
@@ -444,7 +445,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 37);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(338, 665);
+            this.tabPage2.Size = new System.Drawing.Size(276, 662);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "相机参数";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -679,7 +680,7 @@
             this.containerRL.Panel2.Controls.Add(this.dataTargetPoint);
             this.containerRL.Panel2MinSize = 100;
             this.containerRL.Size = new System.Drawing.Size(932, 351);
-            this.containerRL.SplitterDistance = 464;
+            this.containerRL.SplitterDistance = 463;
             this.containerRL.TabIndex = 1;
             // 
             // dataExistPoint
@@ -707,36 +708,9 @@
             this.dataExistPoint.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataExistPoint.RowTemplate.Height = 37;
             this.dataExistPoint.ShowEditingIcon = false;
-            this.dataExistPoint.Size = new System.Drawing.Size(460, 347);
+            this.dataExistPoint.Size = new System.Drawing.Size(459, 347);
             this.dataExistPoint.TabIndex = 0;
             this.dataExistPoint.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataExistPoint_CellClick);
-            // 
-            // dataTargetPoint
-            // 
-            this.dataTargetPoint.AllowUserToAddRows = false;
-            this.dataTargetPoint.AllowUserToDeleteRows = false;
-            this.dataTargetPoint.AllowUserToOrderColumns = true;
-            this.dataTargetPoint.AutoGenerateColumns = false;
-            this.dataTargetPoint.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataTargetPoint.ColumnHeadersHeight = 32;
-            this.dataTargetPoint.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.pointNumberDataGridViewTextBoxColumn1,
-            this.rightRowNumberDataGridViewTextBoxColumn1,
-            this.rightColNumberDataGridViewTextBoxColumn1,
-            this.leftRowNumberDataGridViewTextBoxColumn1,
-            this.leftColNumberDataGridViewTextBoxColumn1,
-            this.xDataGridViewTextBoxColumn1,
-            this.yDataGridViewTextBoxColumn1,
-            this.zDataGridViewTextBoxColumn1});
-            this.dataTargetPoint.DataSource = this.dataListBindingSource;
-            this.dataTargetPoint.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataTargetPoint.Location = new System.Drawing.Point(0, 0);
-            this.dataTargetPoint.Name = "dataTargetPoint";
-            this.dataTargetPoint.ReadOnly = true;
-            this.dataTargetPoint.RowTemplate.Height = 37;
-            this.dataTargetPoint.Size = new System.Drawing.Size(460, 347);
-            this.dataTargetPoint.TabIndex = 0;
-            this.dataTargetPoint.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTargetPoint_CellClick);
             // 
             // pointNumberDataGridViewTextBoxColumn
             // 
@@ -805,6 +779,33 @@
             // dataListBindingSource
             // 
             this.dataListBindingSource.DataSource = typeof(QFJH.DataStruct.DataList);
+            // 
+            // dataTargetPoint
+            // 
+            this.dataTargetPoint.AllowUserToAddRows = false;
+            this.dataTargetPoint.AllowUserToDeleteRows = false;
+            this.dataTargetPoint.AllowUserToOrderColumns = true;
+            this.dataTargetPoint.AutoGenerateColumns = false;
+            this.dataTargetPoint.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataTargetPoint.ColumnHeadersHeight = 32;
+            this.dataTargetPoint.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.pointNumberDataGridViewTextBoxColumn1,
+            this.rightRowNumberDataGridViewTextBoxColumn1,
+            this.rightColNumberDataGridViewTextBoxColumn1,
+            this.leftRowNumberDataGridViewTextBoxColumn1,
+            this.leftColNumberDataGridViewTextBoxColumn1,
+            this.xDataGridViewTextBoxColumn1,
+            this.yDataGridViewTextBoxColumn1,
+            this.zDataGridViewTextBoxColumn1});
+            this.dataTargetPoint.DataSource = this.dataListBindingSource;
+            this.dataTargetPoint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataTargetPoint.Location = new System.Drawing.Point(0, 0);
+            this.dataTargetPoint.Name = "dataTargetPoint";
+            this.dataTargetPoint.ReadOnly = true;
+            this.dataTargetPoint.RowTemplate.Height = 37;
+            this.dataTargetPoint.Size = new System.Drawing.Size(461, 347);
+            this.dataTargetPoint.TabIndex = 0;
+            this.dataTargetPoint.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTargetPoint_CellClick);
             // 
             // pointNumberDataGridViewTextBoxColumn1
             // 
@@ -885,7 +886,7 @@
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.mainMenu.ResumeLayout(false);
@@ -923,8 +924,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.containerRL)).EndInit();
             this.containerRL.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataExistPoint)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTargetPoint)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataListBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataTargetPoint)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cameraParaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -943,7 +944,6 @@
         private System.Windows.Forms.ToolStripMenuItem 基准图像BToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 搜索图像SToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 保存SToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 文档DToolStripMenuItem;
         private System.Windows.Forms.SplitContainer containerMain;
         private System.Windows.Forms.SplitContainer ContainerRight;
         private System.Windows.Forms.SplitContainer ContainerLeftUpper;
@@ -1005,6 +1005,7 @@
         private System.Windows.Forms.ToolStripMenuItem 查看外方位元素VToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 左图像LToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 右图像LToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 保存ToolStripMenuItem;
     }
 }
 
