@@ -38,12 +38,14 @@ namespace QFJH.UI
             foreach (var t in _targetData)
             {
                 _serImg?.DrawMark((int)t.RightColNumber, (int)t.RightRowNumber, t.PointNumber);
+                _baseImg?.DrawMark((int)t.LeftColNumber, (int)t.LeftRowNumber, t.PointNumber);
             }
             foreach (var t in _existData)
             {
                 _serImg?.DrawMark((int)t.RightColNumber, (int)t.RightRowNumber, t.PointNumber);
             }
             pictureMatch.Image = _serImg?.ImgData;
+            pictureRef.Image = _baseImg?.ImgData;
         }
 
         private void DrawPicMarkBase()
@@ -157,6 +159,8 @@ namespace QFJH.UI
             {
                 panelRU.VerticalScroll.Value = (int)_targetData[row].RightRowNumber;
                 panelRU.HorizontalScroll.Value = (int)_targetData[row].RightColNumber;
+                panelLU.VerticalScroll.Value = (int)_targetData[row].LeftRowNumber;
+                panelLU.HorizontalScroll.Value = (int)_targetData[row].LeftColNumber;
             }
             catch (Exception)
             {
